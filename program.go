@@ -7,7 +7,10 @@ import (
 	"time"
 )
 
+var expressionArray []string
+
 func main() {
+	fmt.Println("Processing...")
 	twoHundred()
 }
 
@@ -19,7 +22,6 @@ func twoHundred() {
 
 	for {
 		a := arrayCombination()
-		//fmt.Println(a)
 		sum = 0
 		textExpression = ""
 		loop = 0
@@ -45,17 +47,16 @@ func twoHundred() {
 			}
 		}
 
-		fmt.Println(textExpression, "=", sum)
 		if sum == 200 {
-			fmt.Println("200")
-			break
+			//fmt.Println("200")
+			ok := findExpression(textExpression)
+			if !ok {
+				expressionArray = append(expressionArray, textExpression)
+				fmt.Println(textExpression, "=", sum)
+			}
 		}
 	}
 
-	fmt.Println()
-	fmt.Println("==================")
-	//fmt.Println("sum = " + strconv.Itoa(sum))
-	fmt.Println(textExpression, "=", sum)
 }
 
 func arrayCombination() []int {
@@ -95,4 +96,14 @@ func arrayCombination() []int {
 	}
 
 	return result
+}
+
+func findExpression(expression string) bool {
+	for _, v := range expressionArray {
+		if v == expression {
+			return true
+		}
+	}
+
+	return false
 }
